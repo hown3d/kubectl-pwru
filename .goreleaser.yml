@@ -1,0 +1,49 @@
+version: 2
+project_name: kubectl-pwru
+release:
+  github:
+    owner: hown3d
+    name: kubectl-pwru
+kos:
+  - id: incluster
+    main: ./cmd/incluster
+    ldflags:
+    - -s -w
+    repositories:
+      - ghcr.io/hown3d/kubectl-pwru/incluster
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    bare: true
+    base_image: docker.io/cilium/pwru:v1.0.12
+    user: "root:root"
+    tags:
+      - latest
+      - "{{.Version}}"
+
+builds:
+  - id: incluster
+    env:
+      - CGO_ENABLED=0
+    main: ./cmd/incluster
+  - id: kubectl-pwru
+    goos:
+    - linux
+    - windows
+    - darwin
+    goarch:
+    - amd64
+    - arm64
+    env:
+      - CGO_ENABLED=0
+    main: ./cmd/plugin/main.go
+    ldflags: -s -w
+      -X github.com/hown3d/kubectl-pwru/pkg/version.Version={{.Version}}
+
+archives:
+  - builds:
+    - kubectl-pwru
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+    - goos: windows
+      format: zip

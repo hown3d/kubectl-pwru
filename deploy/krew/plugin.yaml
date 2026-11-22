@@ -1,0 +1,55 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: kubectl-pwru
+spec:
+  version: "v0.1.0"
+  platforms:
+  - selector:
+      matchLabels:
+        os: linux
+        arch: amd64
+    uri: https://github.com/hown3d/kubectl-pwru/releases/download/v0.1.0/kubectl-pwru_linux_amd64.tar.gz
+    sha256: ""
+    files:
+    - from: "./kubectl-pwru"
+      to: "."
+    - from: LICENSE
+      to: "."
+    bin: "kubectl-pwru"
+  - selector:
+      matchLabels:
+        os: darwin
+        arch: amd64
+    uri: https://github.com/hown3d/kubectl-pwru/releases/download/v0.1.0/kubectl-pwru_darwin_amd64.tar.gz
+    sha256: ""
+    files:
+    - from: "./kubectl-pwru"
+      to: "."
+    - from: LICENSE
+      to: "."
+    bin: "kubectl-pwru"
+  - selector:
+      matchLabels:
+        os: windows
+        arch: amd64
+    uri: https://github.com/hown3d/kubectl-pwru/releases/download/v0.1.0/kubectl-pwru_windows_amd64.zip
+    sha256: ""
+    files:
+    - from: "/kubectl-pwru.exe"
+      to: "."
+    - from: LICENSE
+      to: "."
+    bin: "kubectl-pwru.exe"
+  shortDescription: A new plugin
+  homepage: https://github.com/hown3d/kubectl-pwru
+  caveats: |
+    Usage:
+      $ kubectl kubectl-pwru
+
+    For additional options:
+      $ kubectl kubectl-pwru --help
+      or https://github.com/hown3d/kubectl-pwru/blob/v0.1.0/doc/USAGE.md
+
+  description: |
+    This is a new plugin
