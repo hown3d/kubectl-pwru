@@ -23,6 +23,11 @@ kos:
 
 builds:
   - id: incluster
+    goos:
+    - linux
+    goarch:
+    - amd64
+    - arm64
     env:
       - CGO_ENABLED=0
     main: ./cmd/incluster
@@ -34,6 +39,11 @@ builds:
     goarch:
     - amd64
     - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+      - goos: darwin
+        goarch: amd64
     env:
       - CGO_ENABLED=0
     main: ./cmd/plugin/main.go
