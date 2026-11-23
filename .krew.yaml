@@ -1,0 +1,33 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: pwru
+spec:
+  version: {{ .TagName }}
+  homepage: https://github.com/hown3d/kubectl-pwru
+  shortDescription: Run pwru for pods in your cluster
+  platforms:
+  - selector:
+      matchLabels:
+        os: linux
+        arch: amd64
+    {{addURIAndSha "https://github.com/hown3d/kubectl-pwru/releases/download/{{ .TagName }}/kubectl-pwru_linux_amd64.tar.gz" .TagName }}
+    bin: kubectl-pwru
+  - selector:
+      matchLabels:
+        os: linux
+        arch: arm64
+    {{addURIAndSha "https://github.com/hown3d/kubectl-pwru/releases/download/{{ .TagName }}/kubectl-pwru_linux_arm64.tar.gz" .TagName }}
+    bin: kubectl-pwru
+  - selector:
+      matchLabels:
+        os: darwin
+        arch: arm64
+    {{addURIAndSha "https://github.com/hown3d/kubectl-pwru/releases/download/{{ .TagName }}/kubectl-pwru_darwin_arm64.tar.gz" .TagName }}
+    bin: kubectl-pwru
+  - selector:
+      matchLabels:
+        os: windows
+        arch: amd64
+    {{addURIAndSha "https://github.com/hown3d/kubectl-pwru/releases/download/{{ .TagName }}/kubectl-pwru_windows_amd64.zip" .TagName }}
+    bin: kubectl-pwru.exe

@@ -18,6 +18,17 @@ jobs:
         uses: actions/setup-go@v7
         with:
           go-version: 1.27
+      - name: Setup Golang caches
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-golang-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-golang-
+      - name: download go mod
+        run: go mod download
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: GoReleaser
