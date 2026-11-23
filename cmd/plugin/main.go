@@ -8,6 +8,7 @@ import (
 	"syscall"
 
 	"github.com/hown3d/kubectl-pwru/cmd/plugin/commands"
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
 )
 
 func main() {
